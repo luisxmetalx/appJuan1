@@ -16,15 +16,21 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers
-from apiFlutter.views import CoordenadaViewSet
+from apiFlutter.views import CoordenadaViewSet, coordenada_detail, coordenada_list
 
-router = routers.DefaultRouter()
-router.register(r'coordenada', CoordenadaViewSet)
+from rest_framework.urlpatterns import format_suffix_patterns
+
+#router = routers.DefaultRouter()
+#router.register(r'coordenada', CoordenadaViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    #url(r'', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^coordenada/', coordenada_list),
+    url(r'^coordenada/<int:pk>', coordenada_detail),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
