@@ -1,5 +1,6 @@
 from .models import Coodenada
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, permissions
+from .permissions import IsOwnerOrReadOnly
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -12,12 +13,15 @@ def coordenada_list(request, format=None):
     """
     List all code snippets, or create a new Coordenadas.
     """
+    
     if request.method == 'GET':
+        permission_classes = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly,)
         coordenadas = Coodenada.objects.all()
         serializer = CoordenadaSerializer(coordenadas, many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':
+        permission_classes = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly,)
         serializer = CoordenadaSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -35,10 +39,12 @@ def coordenada_detail(request, pk, format=None):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
+        permission_classes = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly,)
         serializer = CoordenadaSerializer(coordenada)
         return Response(serializer.data)
 
     elif request.method == 'PUT':
+        permission_classes = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly,)
         serializer = CoordenadaSerializer(coordenada, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -46,6 +52,7 @@ def coordenada_detail(request, pk, format=None):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
+        permission_classes = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly,)
         coordenada.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 

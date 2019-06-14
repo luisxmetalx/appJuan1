@@ -1,0 +1,16 @@
+# Add any directories, files, or patterns you don't want to be tracked by version control
+
+.idea/
+
+# Ignorar migrations
+**/migrations/*
+!**/migrations/__init__.py
+
+settings.py
+comextweb/settings.py
+
+# Archivos Subidos
+comextweb/media/
+
+# Archivos compilados de Python
+*.pyc

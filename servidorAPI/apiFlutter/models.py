@@ -3,10 +3,17 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+from pygments.lexers import get_lexer_by_name
+from pygments.formatters.html import HtmlFormatter
+from pygments import highlight
+
 # Create your models here.
 class Coodenada(models.Model):
     latitud     = models.CharField(max_length=200)
     longitud    = models.CharField(max_length=200)
+    #owner = models.ForeignKey('auth.User', related_name='coodenada', on_delete=models.CASCADE)
+    highlighted = models.TextField()
     
     def __str__(self):
         return '%s %s' % (self.latitud, self.longitud)
+
