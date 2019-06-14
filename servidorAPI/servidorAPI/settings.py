@@ -25,7 +25,9 @@ SECRET_KEY = '5eriqk-$t+2m6*ub@0%sh@0o*a$q(klx7u=fg1kh=8ejv-hmrk'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+	'142.93.64.193',
+]
 
 
 # Application definition
@@ -46,6 +48,15 @@ REST_FRAMEWORK = {
          'rest_framework.permissions.IsAuthenticated',
     ],
 }
+
+#REST_FRAMEWORK = {
+#       'DEFAULT_AUTHENTICATION_CLASSES': (
+#           'rest_framework.authentication.TokenAuthentication',
+#       ),
+#       'DEFAULT_PERMISSION_CLASSES': (
+#            'rest_framework.permissions.IsAdminUser'
+#       ),
+#}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -82,9 +93,20 @@ WSGI_APPLICATION = 'servidorAPI.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
+    #'default': {
+    #    'ENGINE': 'django.db.backends.sqlite3',
+    #    'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    #}
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'flutter',
+        'USER': 'root',
+        'PASSWORD': '!@#?$T3#@#AfE0034',
+        'HOST': '',   # Or an IP Address that your DB is hosted on
+        #'PORT': '3306',
+	'OPTIONS': {
+            'init_command': 'SET storage_engine=INNODB',
+        }
     }
 }
 
@@ -124,5 +146,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
+
+STATIC_ROOT = '/var/www/appJuan1/servidorAPI/'
+#STATIC_ROOT = '/'
 
 STATIC_URL = '/static/'
