@@ -8,9 +8,10 @@ https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/
 """
 
 import os
+import sys
+
+sys.path = ['/var/www/', '/usr/lib/python2.7'] + sys.path
+os.environ["DJANGO_SETTINGS_MODULE"] = "servidorAPI.settings"
 
 from django.core.wsgi import get_wsgi_application
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "servidorAPI.settings")
-
 application = get_wsgi_application()

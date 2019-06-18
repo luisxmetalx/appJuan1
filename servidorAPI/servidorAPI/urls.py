@@ -33,4 +33,3 @@ urlpatterns = [
     url(r'^coordenada/<int:pk>', coordenada_detail),
 ]
 
-urlpatterns = format_suffix_patterns(urlpatterns)

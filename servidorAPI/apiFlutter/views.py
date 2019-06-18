@@ -2,6 +2,9 @@ from .models import Coodenada
 from rest_framework import viewsets, status, permissions
 from .permissions import IsOwnerOrReadOnly
 
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -60,5 +63,7 @@ class CoordenadaViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
     queryset = Coodenada.objects.all()
     serializer_class = CoordenadaSerializer
