@@ -16,7 +16,8 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers
-from apiFlutter.views import CoordenadaViewSet, coordenada_detail, coordenada_list
+from rest_framework.authtoken import views
+from apiFlutter.views import RegistroGpsMovilViewSet, coordenada_detail, coordenada_list
 
 from rest_framework.urlpatterns import format_suffix_patterns
 
@@ -29,6 +30,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     #url(r'', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^token-auth/', views.obtain_auth_token),
     url(r'^coordenada/', coordenada_list),
     url(r'^coordenada/<int:pk>', coordenada_detail),
 ]

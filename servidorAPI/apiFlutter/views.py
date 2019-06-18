@@ -1,4 +1,4 @@
-from .models import Coodenada
+from .models import RegistroGpsMovil
 from rest_framework import viewsets, status, permissions
 from .permissions import IsOwnerOrReadOnly
 
@@ -8,7 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from .serializers import CoordenadaSerializer
+from .serializers import RegistroGpsMovilSerializer
 
 
 @api_view(['GET', 'POST'])
@@ -19,13 +19,13 @@ def coordenada_list(request, format=None):
     
     if request.method == 'GET':
         permission_classes = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly,)
-        coordenadas = Coodenada.objects.all()
-        serializer = CoordenadaSerializer(coordenadas, many=True)
+        coordenadas = RegistroGpsMovil.objects.all()
+        serializer = RegistroGpsMovilSerializer(coordenadas, many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':
         permission_classes = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly,)
-        serializer = CoordenadaSerializer(data=request.data)
+        serializer = RegistroGpsMovilSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -37,18 +37,18 @@ def coordenada_detail(request, pk, format=None):
     Retrieve, update or delete a code Coordenadas.
     """
     try:
-        coordenada = Coodenada.objects.get(pk=pk)
+        coordenada = RegistroGpsMovil.objects.get(pk=pk)
     except coordenada.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
         permission_classes = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly,)
-        serializer = CoordenadaSerializer(coordenada)
+        serializer = RegistroGpsMovilSerializer(coordenada)
         return Response(serializer.data)
 
     elif request.method == 'PUT':
         permission_classes = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly,)
-        serializer = CoordenadaSerializer(coordenada, data=request.data)
+        serializer = RegistroGpsMovilSerializer(coordenada, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -59,11 +59,11 @@ def coordenada_detail(request, pk, format=None):
         coordenada.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-class CoordenadaViewSet(viewsets.ModelViewSet):
+class RegistroGpsMovilViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
-    queryset = Coodenada.objects.all()
-    serializer_class = CoordenadaSerializer
+    queryset = RegistroGpsMovil.objects.all()
+    serializer_class = RegistroGpsMovilSerializer
